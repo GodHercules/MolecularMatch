@@ -8,7 +8,7 @@ import {
   useReactTable
 } from "@tanstack/react-table";
 import { useMemo } from "react";
-import { MatchResult } from "@molecular-match/shared";
+import { MatchResult } from "@/lib/match";
 import { Badge } from "@/components/ui/badge";
 import { Table, Td, Th } from "@/components/ui/table";
 import { useI18n } from "@/components/language-provider";

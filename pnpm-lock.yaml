@@ -102,9 +102,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.10.0
         version: 3.10.0(react-hook-form@7.76.1(react@19.0.0))
-      '@molecular-match/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
       '@radix-ui/react-select':
         specifier: ^2.1.4
         version: 2.2.6(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -10494,4 +10491,3 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   zod@3.25.76: {}
-

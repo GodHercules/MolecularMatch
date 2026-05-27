@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { matchesToCsv, MatchResult } from "@molecular-match/shared";
+import { matchesToCsv, MatchResult } from "@/lib/match";
 import SearchResultsTable from "@/components/search-results-table";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
