@@ -1,0 +1,23 @@
+{
+  "name": "@molecular-match/importers",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "import:pubchem": "tsx src/import-pubchem.ts",
+    "import:chebi": "tsx src/import-chebi.ts",
+    "import:hmdb": "tsx src/import-hmdb.ts",
+    "import:all": "tsx src/import-all.ts",
+    "build": "tsc -p tsconfig.json",
+    "lint": "echo importers lint ok",
+    "test": "echo importers tests covered in api/shared"
+  },
+  "dependencies": {
+    "@molecular-match/shared": "workspace:*",
+    "axios": "^1.8.4",
+    "csv-parse": "^5.5.6",
+    "mongoose": "^8.18.0",
+    "sax": "^1.4.1"
+  }
+}
+

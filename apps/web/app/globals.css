@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 205 33% 97%;
+  --foreground: 222 77% 17%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 77% 17%;
+  --primary: 220 84% 39%;
+  --primary-foreground: 0 0% 100%;
+  --muted: 198 67% 92%;
+  --muted-foreground: 219 45% 30%;
+  --border: 198 42% 84%;
+  --warning: 174 100% 42%;
+  --brand-blue: 222 77% 17%;
+  --brand-blue-strong: 220 84% 39%;
+  --brand-cyan: 188 88% 42%;
+  --brand-teal: 174 100% 42%;
+  --brand-mist: 198 67% 85%;
+}
+
+.dark {
+  --background: 228 48% 5%;
+  --foreground: 198 67% 88%;
+  --card: 226 42% 10%;
+  --card-foreground: 198 67% 88%;
+  --primary: 188 88% 42%;
+  --primary-foreground: 228 48% 5%;
+  --muted: 223 34% 14%;
+  --muted-foreground: 200 30% 72%;
+  --border: 221 35% 24%;
+  --warning: 174 100% 42%;
+  --brand-blue: 220 84% 65%;
+  --brand-blue-strong: 220 84% 52%;
+  --brand-cyan: 188 88% 52%;
+  --brand-teal: 174 100% 48%;
+  --brand-mist: 220 24% 28%;
+}
+
+body {
+  @apply bg-background text-foreground font-sans;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 14% 8%, hsla(var(--brand-cyan), 0.18), transparent 35%),
+    radial-gradient(circle at 86% 0%, hsla(var(--brand-blue-strong), 0.18), transparent 38%),
+    linear-gradient(135deg, hsla(var(--brand-mist), 0.2), transparent 42%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background-image:
+    radial-gradient(circle, hsla(var(--brand-cyan), 0.55) 2px, transparent 2px),
+    linear-gradient(hsla(var(--brand-blue-strong), 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, hsla(var(--brand-blue-strong), 0.15) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 120px 120px;
+  background-position: 75% 8%, 75% 8%, 75% 8%;
+}
+
+* {
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+::selection {
+  background: hsla(var(--brand-cyan), 0.28);
+}
+
+.brand-title {
+  background: linear-gradient(90deg, hsl(var(--brand-blue)), hsl(var(--brand-blue-strong)), hsl(var(--brand-teal)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-button {
+  background: linear-gradient(90deg, hsl(var(--brand-blue-strong)), hsl(var(--brand-teal)));
+  color: white;
+}
+
+.dark .brand-button {
+  color: hsl(var(--background));
+}
+
+.section-kicker {
+  color: hsl(var(--brand-blue));
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.brand-panel {
+  border: 1px solid hsla(var(--border), 0.9);
+  background:
+    linear-gradient(135deg, hsla(var(--card), 0.9), hsla(var(--muted), 0.45)),
+    radial-gradient(circle at 100% 0, hsla(var(--brand-cyan), 0.12), transparent 38%);
+}
+
+.brand-chip {
+  border: 1px solid hsla(var(--brand-blue-strong), 0.28);
+  background: hsla(var(--brand-cyan), 0.08);
+  color: hsl(var(--brand-blue));
+}
+

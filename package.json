@@ -1,0 +1,22 @@
+{
+  "name": "molecular-match",
+  "private": true,
+  "packageManager": "pnpm@10.12.4",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @molecular-match/web --filter @molecular-match/api dev",
+    "dev:web": "pnpm --filter @molecular-match/web dev",
+    "dev:api": "pnpm --filter @molecular-match/api dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "import:pubchem": "pnpm --filter @molecular-match/importers import:pubchem",
+    "import:chebi": "pnpm --filter @molecular-match/importers import:chebi",
+    "import:hmdb": "pnpm --filter @molecular-match/importers import:hmdb",
+    "import:all": "pnpm --filter @molecular-match/importers import:all"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.3"
+  }
+}
+
