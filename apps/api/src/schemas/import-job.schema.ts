@@ -18,7 +18,7 @@ class ImportError {
   createdAt!: Date;
 }
 
-@Schema({ timestamps: true, collection: "import_jobs" })
+@Schema({ timestamps: true, collection: "import_jobs", suppressReservedKeysWarning: true })
 export class ImportJob {
   @Prop({ required: true, index: true })
   source!: string;

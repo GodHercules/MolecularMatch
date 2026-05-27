@@ -13,7 +13,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger });
 
   const config = app.get(ConfigService);
-  const port = config.get<number>("API_PORT") ?? 4000;
+  const port = Number(
+    process.env.PORT ??
+      process.env.API_PORT ??
+      config.get<number>("API_PORT") ??
+      config.get("app.apiPort") ??
+      4000
+  );
   const corsOrigin = config.get<string>("CORS_ORIGIN") ?? "http://localhost:3000";
 
   app.enableCors({ origin: corsOrigin, credentials: true });
@@ -32,9 +38,13 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup("swagger", app, document);
 
-  await app.listen(port);
+  await app.listen(port, "0.0.0.0");
   logger.log(`API em execucao na porta ${port}`);
 }
 
-bootstrap();
+bootstrap().catch((error) => {
+  const logger = new StructuredLogger();
+  logger.error("Falha ao iniciar a API", error instanceof Error ? error.stack : String(error));
+  process.exit(1);
+});
 
