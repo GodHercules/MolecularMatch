@@ -3,7 +3,7 @@ import { registerAs } from "@nestjs/config";
 export default registerAs("app", () => ({
   nodeEnv: process.env.NODE_ENV ?? "development",
   appMode: process.env.APP_MODE ?? "internal_test",
-  apiPort: Number(process.env.API_PORT ?? 4000),
+  apiPort: Number(process.env.API_PORT ?? process.env.PORT ?? 4000),
   corsOrigin: process.env.CORS_ORIGIN ?? "http://localhost:3000",
   mongodbUri: process.env.MONGODB_URI ?? "",
   mongodbDbName: process.env.MONGODB_DB_NAME ?? "molecular_match",
