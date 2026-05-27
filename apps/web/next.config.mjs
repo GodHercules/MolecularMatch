@@ -1,8 +1,10 @@
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ["@molecular-match/shared"],
   experimental: {
-    typedRoutes: false
+    typedRoutes: false,
+    externalDir: true
   }
 };
 
 export default nextConfig;
-
