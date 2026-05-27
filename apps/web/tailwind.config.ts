@@ -2,11 +2,7 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: ["class"],
-  content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./lib/**/*.{ts,tsx}"
-  ],
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -19,11 +15,13 @@ const config: Config = {
         muted: "hsl(var(--muted))",
         mutedForeground: "hsl(var(--muted-foreground))",
         border: "hsl(var(--border))",
-        warning: "hsl(var(--warning))"
+        warning: "hsl(var(--warning))",
+        success: "hsl(var(--success))",
+        danger: "hsl(var(--danger))"
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "sans-serif"],
-        mono: ["IBM Plex Mono", "ui-monospace", "monospace"]
+        sans: ["var(--font-manrope)", "ui-sans-serif", "sans-serif"],
+        mono: ["var(--font-plex-mono)", "ui-monospace", "monospace"]
       }
     }
   },
@@ -31,4 +29,3 @@ const config: Config = {
 };
 
 export default config;
-

@@ -1,19 +1,20 @@
-﻿"use client";
+"use client";
 
-import type React from "react";
 import { Button } from "@/components/ui/button";
 import { Language, useI18n } from "@/components/language-provider";
+import { cn } from "@/lib/utils";
 
-function FlagPill({ active, children }: { active: boolean; children: React.ReactNode }) {
+function LangPill({ active, label }: { active: boolean; label: string }) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs ${
+      className={cn(
+        "inline-flex min-w-14 items-center justify-center rounded-full border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
         active
-          ? "border-primary bg-[linear-gradient(90deg,hsla(var(--brand-blue-strong),0.2),hsla(var(--brand-cyan),0.22))] text-foreground shadow-[0_8px_16px_-12px_hsl(var(--brand-blue))]"
-          : "border-border bg-card/45 text-muted-foreground"
-      }`}
+          ? "border-primary/60 bg-[linear-gradient(90deg,hsla(var(--brand-blue-strong),0.2),hsla(var(--brand-cyan),0.22))] text-foreground"
+          : "border-border bg-card/55 text-muted-foreground"
+      )}
     >
-      {children}
+      {label}
     </span>
   );
 }
@@ -24,7 +25,7 @@ export default function LanguageToggle() {
   const set = (next: Language) => setLanguage(next);
 
   return (
-    <div className="flex items-center gap-1 rounded-xl border border-border bg-card/75 p-1">
+    <div className="flex items-center gap-1 rounded-xl border border-border/80 bg-card/70 p-1">
       <Button
         type="button"
         variant="ghost"
@@ -34,7 +35,7 @@ export default function LanguageToggle() {
         aria-label={t("langPt")}
         title={t("langPt")}
       >
-        <FlagPill active={language === "pt-BR"}>🇧🇷 PT</FlagPill>
+        <LangPill active={language === "pt-BR"} label="PT-BR" />
       </Button>
       <Button
         type="button"
@@ -45,7 +46,7 @@ export default function LanguageToggle() {
         aria-label={t("langEn")}
         title={t("langEn")}
       >
-        <FlagPill active={language === "en-US"}>🇺🇸 EN</FlagPill>
+        <LangPill active={language === "en-US"} label="EN-US" />
       </Button>
     </div>
   );

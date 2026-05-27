@@ -5,18 +5,20 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 rounded-xl text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-45",
   {
     variants: {
       variant: {
-        default: "brand-button shadow-[0_10px_22px_-14px_hsl(var(--brand-blue-strong))] hover:brightness-110",
-        outline: "border border-border bg-card/70 hover:bg-muted",
-        ghost: "hover:bg-muted"
+        default:
+          "bg-[linear-gradient(96deg,hsl(var(--brand-blue-strong)),hsl(var(--brand-teal)))] text-primary-foreground shadow-[0_18px_30px_-20px_hsl(var(--brand-blue-strong))] hover:brightness-110 active:translate-y-px",
+        outline:
+          "border border-border bg-card/75 text-foreground hover:border-primary/35 hover:bg-muted/70 active:translate-y-px",
+        ghost: "text-muted-foreground hover:bg-muted/70 hover:text-foreground"
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-8 rounded-md px-3",
-        lg: "h-11 rounded-md px-8"
+        default: "h-11 px-4 py-2",
+        sm: "h-9 rounded-lg px-3 text-xs",
+        lg: "h-12 rounded-xl px-7 text-base"
       }
     },
     defaultVariants: {
@@ -32,12 +34,9 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, ...props }, ref) => {
-    return (
-      <button className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
-    );
+    return <button className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
   }
 );
 Button.displayName = "Button";
 
 export { Button, buttonVariants };
-

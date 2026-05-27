@@ -1,9 +1,11 @@
-﻿"use client";
+"use client";
 
+import type React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FlaskConical, SlidersHorizontal } from "lucide-react";
 import { matchesToCsv, MatchResult } from "@/lib/match";
 import SearchResultsTable from "@/components/search-results-table";
 import { Button } from "@/components/ui/button";
@@ -12,6 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { api } from "@/lib/api";
 import { useI18n } from "@/components/language-provider";
+import Reveal from "@/components/reveal";
+import StatusMessage from "@/components/status-message";
 
 const schema = z.object({
   mass: z.coerce.number().positive(),
@@ -70,63 +74,108 @@ export default function SingleSearchPage() {
 
   return (
     <div className="space-y-4">
-      <Card className="brand-panel space-y-3">
-        <p className="section-kicker">04. {t("singleTitle")}</p>
-        <h2 className="text-lg font-semibold">{t("singleTitle")}</h2>
-        <p className="text-sm text-muted-foreground">{t("scientificWarning")}</p>
+      <Reveal>
+        <Card className="space-y-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="section-kicker">02. {t("singleTitle")}</p>
+              <h1 className="mt-1 text-2xl font-bold tracking-tight">{t("singleTitle")}</h1>
+              <p className="mt-1 text-sm text-muted-foreground">{t("singleSubtitle")}</p>
+            </div>
+            <BadgeInfo text={t("searchGuide")} />
+          </div>
 
-        <form className="grid grid-cols-1 gap-3 md:grid-cols-3" onSubmit={onSubmit}>
-          <div>
-            <label className="text-xs">{t("molecularWeightInput")}</label>
-            <Input type="number" step="any" {...form.register("mass")} />
-          </div>
-          <div>
-            <label className="text-xs">{t("massType")}</label>
-            <Select {...form.register("massType")}>
-              <option value="auto">auto</option>
-              <option value="molecularWeight">molecularWeight</option>
-              <option value="exactMass">exactMass</option>
-              <option value="monoisotopicMass">monoisotopicMass</option>
-              <option value="averageMass">averageMass</option>
-            </Select>
-          </div>
-          <div>
-            <label className="text-xs">{t("tolerance")}</label>
-            <Input type="number" step="any" {...form.register("toleranceValue")} />
-          </div>
-          <div>
-            <label className="text-xs">{t("toleranceType")}</label>
-            <Select {...form.register("toleranceType")}>
-              <option value="da">da</option>
-              <option value="ppm">ppm</option>
-              <option value="percent">percent</option>
-            </Select>
-          </div>
-          <div>
-            <label className="text-xs">{t("resultLimit")}</label>
-            <Input type="number" {...form.register("limitPerMass")} />
-          </div>
-          <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" {...form.register("includeRestrictedSources")} />
-            {t("includeRestricted")}
-          </label>
-          <div className="md:col-span-3 flex gap-2">
-            <Button type="submit" disabled={loading}>
-              {loading ? t("searching") : t("search")}
-            </Button>
-            <Button type="button" variant="outline" onClick={exportCsv} disabled={!items.length}>
-              {t("exportCsv")}
-            </Button>
-          </div>
-        </form>
+          <form className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3" onSubmit={onSubmit}>
+            <Field label={t("molecularWeightInput")} htmlFor="mass">
+              <Input id="mass" type="number" step="any" {...form.register("mass")} />
+            </Field>
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
-      </Card>
+            <Field label={t("massType")} htmlFor="massType">
+              <Select id="massType" {...form.register("massType")}>
+                <option value="auto">{t("massTypeAuto")}</option>
+                <option value="molecularWeight">{t("massTypeMolecularWeight")}</option>
+                <option value="exactMass">{t("massTypeExactMass")}</option>
+                <option value="monoisotopicMass">{t("massTypeMonoisotopicMass")}</option>
+                <option value="averageMass">{t("massTypeAverageMass")}</option>
+              </Select>
+            </Field>
 
-      <Card className="brand-panel">
-        <h3 className="mb-3 font-semibold">{t("candidates")}</h3>
-        <SearchResultsTable items={items} />
-      </Card>
+            <Field label={t("tolerance")} htmlFor="toleranceValue">
+              <Input id="toleranceValue" type="number" step="any" {...form.register("toleranceValue")} />
+            </Field>
+
+            <Field label={t("toleranceType")} htmlFor="toleranceType">
+              <Select id="toleranceType" {...form.register("toleranceType")}>
+                <option value="da">{t("toleranceDa")}</option>
+                <option value="ppm">{t("tolerancePpm")}</option>
+                <option value="percent">{t("tolerancePercent")}</option>
+              </Select>
+            </Field>
+
+            <Field label={t("resultLimit")} htmlFor="limitPerMass">
+              <Input id="limitPerMass" type="number" {...form.register("limitPerMass")} />
+            </Field>
+
+            <label className="flex min-h-11 items-center gap-2 rounded-xl border border-border/70 bg-card/70 px-3 text-sm">
+              <input type="checkbox" className="h-4 w-4" {...form.register("includeRestrictedSources")} />
+              {t("includeRestricted")}
+            </label>
+
+            <div className="flex flex-wrap gap-2 md:col-span-2 xl:col-span-3">
+              <Button type="submit" disabled={loading}>
+                <FlaskConical size={16} />
+                {loading ? t("searching") : t("search")}
+              </Button>
+              <Button type="button" variant="outline" onClick={exportCsv} disabled={!items.length}>
+                {t("exportCsv")}
+              </Button>
+            </div>
+          </form>
+
+          <StatusMessage tone="warning" title={t("scientificNoticeTitle")} description={t("scientificNoticeText")} />
+          {error ? (
+            <StatusMessage tone="network" title={t("networkErrorTitle")} description={`${t("networkErrorDescription")} (${error})`} />
+          ) : null}
+        </Card>
+      </Reveal>
+
+      <Reveal delayMs={90}>
+        <Card>
+          <div className="mb-3 flex items-center gap-2">
+            <SlidersHorizontal size={16} />
+            <h2 className="font-semibold">{t("candidates")}</h2>
+          </div>
+          <SearchResultsTable items={items} />
+        </Card>
+      </Reveal>
     </div>
+  );
+}
+
+function Field({
+  label,
+  htmlFor,
+  children
+}: {
+  label: string;
+  htmlFor: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <label htmlFor={htmlFor} className="text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">
+        {label}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+function BadgeInfo({ text }: { text: string }) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-xs font-medium text-foreground">
+      <FlaskConical size={13} />
+      {text}
+    </span>
   );
 }

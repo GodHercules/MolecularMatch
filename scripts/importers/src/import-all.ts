@@ -1,4 +1,5 @@
-﻿import "./lib/load-env";`r`nimport { spawn } from "child_process";
+import "./lib/load-env";
+import { spawn } from "child_process";
 
 function runScript(script: string, extraArgs: string[] = []) {
   return new Promise<void>((resolve, reject) => {
@@ -26,5 +27,3 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
-
-
